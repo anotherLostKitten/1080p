@@ -1,4 +1,4 @@
-public class Ticket implements Comparable {
+public class Ticket implements Comparable<Ticket> {
     private int _prio;
     private String _prob;
     private int _id;
@@ -16,11 +16,8 @@ public class Ticket implements Comparable {
     public void setName(String n) { _name = n; }
     public void setProb(String n) { _prob = n; }
 
-    public int compareTo(Object o) {
-	if (o instanceof Ticket) {
-	    return (new Integer(_prio)).compareTo(new Integer(((Ticket)o)._prio));
-	} else
-	    throw new IllegalArgumentException("Object is not Ticket");
+    public int compareTo(Ticket o) {
+	return (new Integer(_prio)).compareTo(new Integer(o._prio));
     }
 
 
