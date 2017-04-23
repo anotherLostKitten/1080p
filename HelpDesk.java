@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,14 +7,14 @@ import java.io.FileNotFoundException;
 public class HelpDesk {
     private PriorityQueue<Ticket> _tickets;
     private int _nextID;
-    private Scanner scin;
+    private Scanner scin; // input scanner
     public HelpDesk() {
 	_tickets = new ArrayPriorityQueue<Ticket>();
 	_nextID = 0;
 	scin = new Scanner(System.in);
     }
     
-    public void genTicket() {
+    public void genTicket() { // prompts user input to generate ticket. priority is length of problem 
 	System.out.println("Hello good sir or madam. By what would you like to be refered to?");
 	String n = scin.nextLine();
 	System.out.println("What seems to be the problem, " + n + "?");
@@ -27,7 +26,7 @@ public class HelpDesk {
 	_nextID++;
     }
     
-    public void saveSolution(String s) {
+    private void saveSolution(String s) { // writes String to solutions.txt file
 	try {
 	    FileWriter f = new FileWriter("solutions.txt", true);
 	    f.write(s);
@@ -36,7 +35,7 @@ public class HelpDesk {
 	    e.printStackTrace();
 	}
     }
-    public boolean alreadySolved() {
+    private boolean alreadySolved() { // returns true if next problem is already registered in solutions.txt, and prints solution to next problem
 	try {
 	    Scanner skin = new Scanner(new File("solutions.txt"));
 	    String q;
@@ -54,7 +53,7 @@ public class HelpDesk {
 	}
 	return false;
     }
-    public String genSolution() {
+    private String genSolution() { // generates solutions from boilerplate set until user says one worked or runs out of solutions
 	try {
 	    Scanner sc = new Scanner(new File("random.txt"));
 	    String pSol;
@@ -74,7 +73,7 @@ public class HelpDesk {
 	return "nothing. There is no solution to this problem";
     }
 
-    public void solution() {
+    public void solution() { // finds a solution, saves it, removes ticket.
 	if(! alreadySolved())
 	    saveSolution(genSolution() + "|" + _tickets.peekMin().getProb() + System.lineSeparator());
 	_tickets.removeMin();
