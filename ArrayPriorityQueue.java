@@ -5,7 +5,7 @@
 
 import java.util.ArrayList;
 
-public class ArrayPriorityQueue<T extends Comparable<T>> { 
+public class ArrayPriorityQueue<T extends Comparable<T>> implements PriorityQueue<T> { 
 
     private ArrayList<T> _data; 
 
